@@ -7,77 +7,71 @@ const Experience = () => {
   const experiences = [
     {
       id: 1,
-      title: 'Full Stack Developer Intern',
-      company: 'TechCorp Solutions',
-      location: 'Bangalore, India',
-      duration: 'June 2023 - August 2023',
-      type: 'Internship',
+      title: 'Senior Backend Engineer',
+      company: 'ShriNeo Capital (ShriNeo Vittiyam Pvt. Ltd.)',
+      location: 'Jaipur, India',
+      duration: 'March 2026 - Present',
+      type: 'Full-time',
       description:
-        'Developed and maintained web applications using React.js and Node.js. Collaborated with senior developers to implement new features and optimize existing codebases.',
+        'Own backend development for a vernacular digital lending platform serving Tier-2/Tier-3 India, backed by banking & NBFC partners. Work across the stack in a fast-moving startup environment, collaborating directly with the founding team.',
       achievements: [
-        'Built a customer dashboard that improved user engagement by 40%',
-        'Optimized database queries reducing response time by 60%',
-        'Implemented automated testing increasing code coverage to 85%',
-        'Mentored 2 junior interns in modern web development practices',
+        'Build and maintain REST APIs for loan discovery, application management, and loan tracking/servicing',
+        "Ship features end-to-end using Node.js and MongoDB across the company's MVP lending platform",
       ],
-      technologies: ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'Docker', 'Git'],
-      companyUrl: 'https://techcorp.com',
-      current: false,
-    },
-    {
-      id: 2,
-      title: 'Frontend Developer',
-      company: 'StartupXYZ',
-      location: 'Remote',
-      duration: 'September 2023 - Present',
-      type: 'Part-time',
-      description:
-        'Leading frontend development for a fintech startup. Responsible for creating responsive web applications and implementing modern UI/UX design patterns.',
-      achievements: [
-        'Developed a real-time trading dashboard used by 1000+ active users',
-        'Implemented responsive design reducing mobile bounce rate by 30%',
-        'Created a component library reducing development time by 50%',
-        'Led code reviews and established frontend development standards',
-      ],
-      technologies: ['React.js', 'TypeScript', 'Tailwind CSS', 'Next.js', 'Redux', 'Chart.js'],
-      companyUrl: 'https://startupxyz.com',
+      technologies: ['Node.js', 'MongoDB', 'Express', 'REST API Design'],
+      companyUrl: '#',
       current: true,
     },
     {
-      id: 3,
-      title: 'Web Development Trainee',
-      company: 'DigitalAgency Pro',
-      location: 'Mumbai, India',
-      duration: 'January 2023 - May 2023',
+      id: 2,
+      title: 'AI/ML Trainee — College Training Program',
+      company: 'KVON Tech Consultancy Services Pvt. Ltd.',
+      location: '',
+      duration: 'July 2026 - August 2026',
       type: 'Training',
       description:
-        'Intensive training program focusing on modern web development technologies. Worked on real client projects under senior developer supervision.',
+        'Completed a structured in-college training program with an initial ~10-day foundation in AI/ML concepts, progressing through applied exercises before a mentored capstone project.',
       achievements: [
-        'Completed 10+ client website projects with 100% on-time delivery',
-        'Achieved 95% client satisfaction rating',
-        'Learned and implemented modern CSS frameworks and animations',
-        "Contributed to agency's internal tool development",
+        'Completed a ~10-day AI/ML foundation followed by a series of small applied AI/ML exercises',
+        'Built a capstone project under mentorship',
+        "Gained exposure to KVON Tech's broader delivery stack spanning AI/ML, web development, and automation",
       ],
-      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap', 'jQuery', 'WordPress'],
-      companyUrl: 'https://digitalagencypro.com',
+      technologies: ['AI/ML', 'Python'],
+      companyUrl: '#',
+      current: false,
+    },
+    {
+      id: 3,
+      title: 'Senior Robotics Instructor',
+      company: 'Aerophantom',
+      location: '',
+      duration: 'January 2026 - February 2026',
+      type: 'Part-time',
+      description:
+        'Conducted robotics & STEM training sessions for students, mentoring on Arduino, sensors, motors, and automation.',
+      achievements: [
+        'Designed hands-on workshops and guided students in building real-world robotics projects',
+        'Mentored students on Arduino, sensors, motors, and automation fundamentals',
+      ],
+      technologies: ['Arduino', 'Sensors', 'Motors', 'Robotics'],
+      companyUrl: '#',
       current: false,
     },
     {
       id: 4,
-      title: 'Technical Team Lead',
-      company: 'College Tech Club',
-      location: 'Delhi, India',
-      duration: 'August 2022 - December 2022',
-      type: 'Leadership',
+      title: 'Web Developer & Robotics Engineer Intern',
+      company: 'Rehabionix',
+      location: '',
+      duration: 'June 2025 - December 2025',
+      type: 'Internship',
       description:
-        'Led a team of 15 students in organizing technical events and hackathons. Managed project timelines and coordinated with industry mentors.',
+        'Designed and developed the company’s official website, and built a robotic hand for rehabilitation by integrating motors, sensors, and microcontrollers.',
       achievements: [
-        'Organized 3 successful hackathons with 500+ participants',
-        'Managed budget of ₹2,00,000 for technical events',
-        'Built partnerships with 5 tech companies for sponsorships',
-        'Increased club membership by 200% during tenure',
+        "Designed and developed the company's official website using modern web technologies",
+        'Assembled and programmed a robotic hand for rehabilitation, integrating motors, sensors, and microcontrollers',
+        'Collaborated with the hardware team to test and calibrate robotic movements',
       ],
-      technologies: ['Project Management', 'Event Planning', 'Team Leadership', 'Mentoring'],
+      technologies: ['React.js', 'Robotics', 'Arduino', 'Sensors', 'Microcontrollers'],
       companyUrl: '#',
       current: false,
     },
@@ -85,6 +79,8 @@ const Experience = () => {
 
   const getTypeColor = (type) => {
     switch (type) {
+      case 'Full-time':
+        return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
       case 'Internship':
         return 'bg-purple-500/10 text-purple-500 border-purple-500/20';
       case 'Part-time':
@@ -164,10 +160,12 @@ const Experience = () => {
                     <CalendarDays className="w-4 h-4 mr-2" />
                     {experience.duration}
                   </div>
-                  <div className="flex items-center text-muted-foreground">
-                    <MapPin className="w-4 h-4 mr-2" />
-                    {experience.location}
-                  </div>
+                  {experience.location && (
+                    <div className="flex items-center text-muted-foreground">
+                      <MapPin className="w-4 h-4 mr-2" />
+                      {experience.location}
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-muted-foreground mb-4 leading-relaxed">{experience.description}</p>
@@ -201,7 +199,7 @@ const Experience = () => {
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-4 gap-6 animate-fade-in-up">
           <div className="portfolio-card p-6 text-center rounded-xl">
-            <div className="text-3xl font-bold text-primary mb-2">2+</div>
+            <div className="text-3xl font-bold text-primary mb-2">1+</div>
             <div className="text-muted-foreground">Years Experience</div>
           </div>
           <div className="portfolio-card p-6 text-center rounded-xl">
@@ -209,7 +207,7 @@ const Experience = () => {
             <div className="text-muted-foreground">Companies Worked</div>
           </div>
           <div className="portfolio-card p-6 text-center rounded-xl">
-            <div className="text-3xl font-bold text-primary mb-2">20+</div>
+            <div className="text-3xl font-bold text-primary mb-2">8</div>
             <div className="text-muted-foreground">Projects Completed</div>
           </div>
           <div className="portfolio-card p-6 text-center rounded-xl">

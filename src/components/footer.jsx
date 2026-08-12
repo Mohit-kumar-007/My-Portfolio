@@ -41,10 +41,10 @@ const Footer = () => {
                  shadow-[0_0_15px_rgba(0,0,0,0.1)] dark:shadow-[0_0_15px_rgba(255,255,255,0.1)]
                  transition-colors duration-300"
     >
-      <div className="container mx-auto px-6 py-4">
-        <div className="flex items-center justify-between gap-4">
+      <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           {/* Navigation Links */}
-          <nav className="flex items-center justify-center gap-4">
+          <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-4">
             {navItems.map((item) => (
               <Link
                 key={item.path}
@@ -59,7 +59,7 @@ const Footer = () => {
           </nav>
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 shrink-0">
             {socialLinks.map((social) => (
               <a
                 key={social.label}

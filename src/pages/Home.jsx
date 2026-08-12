@@ -39,16 +39,30 @@ const Home = () => {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             {/* Photo - Left Side */}
             <div className="lg:w-1/3 flex justify-center lg:justify-start">
-              <div className="relative">
-                <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
-                <div className="relative w-64 h-64 lg:w-80 lg:h-80 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-1 animate-pulse-glow">
-                  <div className="w-full h-full rounded-full bg-gradient-to-br from-background to-card flex items-center justify-center overflow-hidden border-2 border-primary/20">
-                    <img 
-                      src="/profile.jpg" 
-                      alt="Mohit Kumar - Full Stack Developer" 
-                      className="w-full h-full object-cover rounded-full"
+              {/* ponytail: pt reserves the exact overflow (40% of circle) so the head never collides with the nav */}
+              <div className="pt-[6.5rem] lg:pt-32">
+                <div className="relative w-64 h-64 lg:w-80 lg:h-80">
+                  <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full"></div>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-accent to-primary p-1 animate-pulse-glow">
+                    <div className="w-full h-full rounded-full bg-gradient-to-br from-background to-card border-2 border-primary/20"></div>
+                  </div>
+                  {/* lower half: clipped to the circle so nothing spills past the ring */}
+                  <div className="absolute inset-0 rounded-full overflow-hidden">
+                    <img
+                      src="/profile-cutout.png"
+                      alt=""
+                      aria-hidden="true"
+                      className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[140%] w-auto max-w-none pointer-events-none select-none"
                     />
                   </div>
+                  {/* upper half: unclipped, free to break out above the ring.
+                      ponytail: img is 140% tall and bottom-aligned, so the circle's centre
+                      sits at (0.4+0.5)/1.4 = 64.29% down the img -> cut the rest off. */}
+                  <img
+                    src="/profile-cutout.png"
+                    alt="Mohit Kumar - Full Stack Developer"
+                    className="absolute left-1/2 -translate-x-1/2 bottom-0 h-[140%] w-auto max-w-none pointer-events-none select-none [clip-path:inset(0_0_35.71%_0)]"
+                  />
                 </div>
               </div>
             </div>

@@ -9,6 +9,12 @@ import { Mail, MapPin, Phone, Send, Linkedin, Github, Twitter } from 'lucide-rea
 import emailjs from '@emailjs/browser';
 import PageLayout from '../components/PageLayout';
 
+// ponytail: EmailJS keys are client-side by design (they ship in the bundle either
+// way), so no .env indirection. The public key is a publishable id, not a secret.
+const EMAILJS_SERVICE_ID = 'service_45xew9a';
+const EMAILJS_TEMPLATE_ID = 'template_8j97pf6';
+const EMAILJS_PUBLIC_KEY = 'a2aQw_cSQT7Gb4IFB';
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -32,15 +38,16 @@ const Contact = () => {
 
     try {
       await emailjs.send(
-        'service_2ymq8kc',
-        'template_ymz06go',
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
         {
-          from_name: formData.name,
-          from_email: formData.email,
+          name: formData.name,
+          email: formData.email,
           message: formData.message,
-          to_email: 'mohitsunariya@gmail.com'
+          title: formData.name,
+          time: new Date().toLocaleString()
         },
-        'a2aQw_cSQT7Gb4IFB'
+        EMAILJS_PUBLIC_KEY
       );
 
       toast({
@@ -50,6 +57,7 @@ const Contact = () => {
 
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
+      console.error('EmailJS send failed:', error);
       toast({
         title: "Failed to send message",
         description: "Please try again or contact me directly via email.",
