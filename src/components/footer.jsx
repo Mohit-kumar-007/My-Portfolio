@@ -1,9 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Github, Linkedin, Twitter } from 'lucide-react';
+import { Github, Linkedin, Twitter, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Footer = () => {
   const location = useLocation();
+  const navRef = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   const navItems = [
     { path: '/', label: 'HOME' },
@@ -32,9 +35,26 @@ const Footer = () => {
     }
   ];
 
+  const updateScrollState = () => {
+    const el = navRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 4);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  useEffect(() => {
+    updateScrollState();
+    window.addEventListener('resize', updateScrollState);
+    return () => window.removeEventListener('resize', updateScrollState);
+  }, []);
+
+  const scrollByAmount = (direction) => {
+    navRef.current?.scrollBy({ left: direction * 120, behavior: 'smooth' });
+  };
+
   return (
-    <footer 
-      className="fixed bottom-0 left-[50%] translate-x-[-50%] z-50 
+    <footer
+      className="fixed bottom-0 left-[50%] translate-x-[-50%] z-50
                  w-[95%] max-w-3xl mx-auto mb-4
                  bg-background/40 backdrop-blur-xl border border-border/50
                  rounded-[40px]
@@ -44,19 +64,54 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
           {/* Navigation Links */}
-          <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 sm:gap-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`text-xs font-medium transition-colors duration-200 hover:text-primary 
-                            ${location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'}
-                            whitespace-nowrap`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          <div className="relative w-full max-w-[170px] min-w-0 sm:w-auto sm:max-w-none">
+            {canScrollLeft && (
+              <>
+                <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-background to-transparent z-10 sm:hidden" />
+                <button
+                  type="button"
+                  onClick={() => scrollByAmount(-1)}
+                  aria-label="Scroll navigation left"
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-20 text-primary animate-pulse sm:hidden"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+              </>
+            )}
+
+            <nav
+              ref={navRef}
+              onScroll={updateScrollState}
+              className="flex w-full min-w-0 flex-nowrap items-center gap-x-4 overflow-x-auto scrollbar-hide
+                         snap-x snap-proximity scroll-px-6 px-6 sm:w-auto sm:justify-center sm:gap-4 sm:overflow-visible sm:px-0"
+            >
+              {navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className={`shrink-0 snap-start text-xs font-medium transition-colors duration-200 hover:text-primary
+                              ${location.pathname === item.path ? 'text-primary' : 'text-muted-foreground'}
+                              whitespace-nowrap`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+
+            {canScrollRight && (
+              <>
+                <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10 sm:hidden" />
+                <button
+                  type="button"
+                  onClick={() => scrollByAmount(1)}
+                  aria-label="Scroll navigation right"
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-20 text-primary animate-pulse sm:hidden"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </>
+            )}
+          </div>
 
           {/* Social Links */}
           <div className="flex items-center gap-4 shrink-0">
